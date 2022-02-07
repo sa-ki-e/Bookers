@@ -1,0 +1,49 @@
+<body>
+ <div class="books">
+  <h1><strong>Books</strong></h1>
+  
+  <% @books.each do |book| %>
+  <span><%= book.title %></span>
+  
+  <% end %>
+  
+  
+  
+ </div>
+ 
+ <table>
+  <div class="thead">
+   <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>...</th>
+   </tr>
+  </div>
+  <div class="tbody">
+   <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+   </tr>
+   
+  </div>
+
+ </table>
+ 
+ <%= form_with model: @book, url: "/index", method: :post, local:true do |f| %>
+
+ <h1>New book</h1>
+ 
+ <h4>Title</h4>
+ <%= f.text_field :title %>
+ 
+ <h4>Body</h4>
+ <%= f.text_area :body %>
+ 
+ <%= f.submit "Create Book" %>
+<% end %>
+
+</body>
