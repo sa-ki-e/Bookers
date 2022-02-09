@@ -1,71 +1,63 @@
-<body>
- 
  <% if flash[:notice] %>
-     <p id="notice">
-       <%= flash[:notice] %>
-     </p>
-   <% end %>
-   
-   
- <div class="books">
+  <p id="notice">
+   <%= flash[:notice] %>
+  </p>
+ <% end %>
+
+ <header>
   <h1><strong>Books</strong></h1>
-
- </div>
-
- <table>
-  <div class="thead">
-   <tr>
-    <th>Title</th>
-    <th>Body</th>
-    <th></th>
-   </tr>
-  </div>
-
-
-
-
-  <div class="tbody">
-   <tr>
+ </header>
+ 
+ <main>
+  <table>
+  <div class="t-box">
+   <tr><th>Title</th><th>Body</th></tr>
+   <div class="t-body">
+    <div class="t-contents">
      <% @books.each do |book| %>
-    <td>
-      <span><%= book.title %></span>
-    </td>
-    <td>
-     <span><%= book.body %></span>
-    </td>
-    <td>
-     <span><%= link_to "Show", show_path(book.id) %></span>
-     </td>
-    <td>
-     <span><%= link_to "Edit", edit_book_path(book.id) %></span>
-    </td>
-    <td>
-     <span><%= link_to "Destroy", destroy_book_path(book.id), method: :delete,"data-confirm" => "Are you sure?" %></span>
-
-
-    </td>
-    <td></td>
-   </tr>
-
-
+     <tr>
+     <td><span><%= book.title %></span></td>
+     <td><span><%= book.body %></span></td>
+     <td><span><%= link_to "Show", show_path(book.id) %></span></td>
+     <td><span><%= link_to "Edit", edit_book_path(book.id) %></span></td>
+     <td><span><%= link_to "Destroy", destroy_book_path(book.id), method: :delete,"data-confirm" => "Are you sure?" %></span></td>
+     </tr>
      <% end %>
+    </div>
+   </div>
   </div>
+  </table>
+ </main>
 
- </table>
 
- <%= form_with model: @books, url: "/books", method: :post, local:true do |f| %>
+  <h2>New book</h2>
+  <%= form_with model: @books, url: "/books", method: :post, local:true do |f| %>
+  <% if @book.errors.any? %>
+  <div class="error-box">
+   <div class="error-count">
+    <h2><%= @book.errors.count %>errors prohibited this book from being saved:</h2>
+   </div>
+   <div class="error-contents">
+    
+   <% @book.errors.full_messages.each do |message| %>
+    <ul>
+     <li><%= message %></li>
+    </ul>
+   </div>
+   <% end %>
+  <% end %>
+  </div>
+  
+ <p>Title<br>
+ <%= f.text_field :title %></p>
 
- <h1>New book</h1>
-
- <h4>Title</h4>
- <%= f.text_field :title %>
-
- <h4>Body</h4>
- <%= f.text_area :body %>
+ <p>Body<br>
+ <%= f.text_area :body %></p>
 
  <span>
  <%= f.submit "Create Book" %>
  </span>
 <% end %>
 
+</main>
 </body>
